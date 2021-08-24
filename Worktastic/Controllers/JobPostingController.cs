@@ -29,12 +29,25 @@ namespace Worktastic.Controllers
 
         public IActionResult CreateEditJobPosting(int id)
         {
+
+            if (id != 0)
+            { 
+                var jobPostingFromDB = _context.JobPostings.SingleOrDefault(x => x.Id == id);
+
+                if (jobPostingFromDB != null)
+                {
+                    return View(jobPostingFromDB);
+                } else
+                {
+                    return NotFound();
+                }
+            }
+
             return View();
         }
 
         public IActionResult CreateEditJob(JobPosting jobPosting, IFormFile file)
         {
-
             jobPosting.OwnerUsername = User.Identity.Name;
 
             if (file != null)
@@ -51,11 +64,11 @@ namespace Worktastic.Controllers
             {
                 _context.JobPostings.Add(jobPosting);
             }
-            else 
+            else
             {
                 var jobFromDb = _context.JobPostings.SingleOrDefault(x => x.Id == jobPosting.Id);
 
-                if (jobFromDb == null) 
+                if (jobFromDb == null)
                 {
                     return NotFound();
                 }
@@ -67,15 +80,32 @@ namespace Worktastic.Controllers
                 jobFromDb.ContactWebsite = jobPosting.ContactWebsite;
                 jobFromDb.Description = jobPosting.Description;
                 jobFromDb.JobLocation = jobPosting.JobLocation;
-                jobFromDb.Salary = jobPosting.Salary;
                 jobFromDb.JobTitle = jobPosting.JobTitle;
+                jobFromDb.Salary = jobPosting.Salary;
                 jobFromDb.StartDate = jobPosting.StartDate;
-                jobFromDb.OwnerUsername = jobPosting.OwnerUsername;
-
-
+                // jobFromDb.OwnerUsername = jobPosting.OwnerUsername;
             }
-            
 
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteJobPosting(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+
+            var jobPostingFromDB = _context.JobPostings.SingleOrDefault(x => x.Id == id);
+
+            if (jobPostingFromDB == null)
+            {
+                return NotFound();
+            }
+
+            _context.JobPostings.Remove(jobPostingFromDB);
             _context.SaveChanges();
 
             return RedirectToAction("Index");

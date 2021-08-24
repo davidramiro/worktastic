@@ -11,8 +11,10 @@
 <table class="table table-bordered table-striped table-hover">
     <thead class="thead-dark">
         <tr>
-            <th>Id</th>
-            <th>Name</th>
+            <th>Job Title</th>
+            <th>Job Location</th>
+            <th>Company Name</th>
+            <th>Actions</th>
         </tr>
     </thead>
 
@@ -21,8 +23,13 @@
             foreach (Worktastic.Model.JobPosting jobPosting in Model)
             { 
                 <tr>
-                    <td>@jobPosting.Id</td>
                     <td>@jobPosting.JobTitle</td>
+                    <td>@jobPosting.JobLocation</td>
+                    <td>@jobPosting.CompanyName</td>
+                    <td>
+                        <a asp-route-id="@jobPosting.Id" asp-controller="JobPosting" asp-action="CreateEditJobPosting" class="btn btn-warning">Edit</a>
+                        <a asp-route-id="@jobPosting.Id" asp-controller="JobPosting" asp-action="DeleteJobPosting" class="btn btn-danger">Delete</a>
+                    </td>
                 </tr>
             }
         }
