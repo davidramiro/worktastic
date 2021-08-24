@@ -37,6 +37,11 @@ namespace Worktastic.Controllers
             { 
                 var jobPostingFromDB = _context.JobPostings.SingleOrDefault(x => x.Id == id);
 
+                if (jobPostingFromDB.OwnerUsername != User.Identity.Name)
+                {
+                    return Unauthorized();
+                }
+
                 if (jobPostingFromDB != null)
                 {
                     return View(jobPostingFromDB);
