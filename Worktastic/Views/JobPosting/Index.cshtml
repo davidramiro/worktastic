@@ -28,7 +28,7 @@
                     <td>@jobPosting.CompanyName</td>
                     <td>
                         <a asp-route-id="@jobPosting.Id" asp-controller="JobPosting" asp-action="CreateEditJobPosting" class="btn btn-warning">Edit</a>
-                        <a asp-route-id="@jobPosting.Id" asp-controller="JobPosting" asp-action="DeleteJobPosting" class="btn btn-danger">Delete</a>
+                        <button class="btn btn-danger" onclick="onClickDeleteButton(@jobPosting.Id)">Delete</button>
                     </td>
                 </tr>
             }
@@ -41,5 +41,36 @@
         $(document).ready(function () {
             $('#jobPostingTable').DataTable();
         });
+
+        function onClickDeleteButton(id) {
+
+            Swal.fire({
+                title: 'Are you sure you want to delete the entry?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: `Keep`,
+                denyButtonText: `Delete`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    Swal.fire('Not deleted.', '', 'info')
+                } else if (result.isDenied) {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("DeleteJobPostingById")",
+                        data: { id: id },
+                        sucess: function (msg) {
+                            location.reload();
+                        },
+                        error: function (msg) {
+                            Swal.fire('Entry could not be deleted.', '', 'error')
+                        }
+                    });
+
+                    
+                }
+            })
+        }
     </script>
 }
