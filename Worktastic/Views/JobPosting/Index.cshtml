@@ -1,0 +1,30 @@
+﻿@model List<Worktastic.Model.JobPosting>
+
+@{
+    ViewData["Title"] = "Your Jobs";
+}
+
+<a class="btn btn-primary" asp-controller="JobPosting" asp-action="CreateEditJobPosting">Post New Job</a>
+
+<hr />
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            foreach (Worktastic.Model.JobPosting jobPosting in Model)
+            { 
+                <tr>
+                    <td>@jobPosting.Id</td>
+                    <td>@jobPosting.JobTitle</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

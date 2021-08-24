@@ -1,0 +1,88 @@
+﻿@model Worktastic.Model.JobPosting
+
+@{
+    ViewData["Title"] = "Create or Edit Job";
+}
+
+
+
+<form asp-controller="JobPosting" asp-action="CreateEditJob" enctype="multipart/form-data">
+    <div class="card">
+        <div class="card-header">
+            <h5>Job Offer</h5>
+        </div>
+
+        <div class="card-body">
+            <div class="row form-group">
+                <div class="col">
+                    <input class="form-control" asp-for="JobTitle" type="text" placeholder="Enter a job title" />
+                </div>
+                <div class="col">
+                    <input class="form-control" asp-for="JobLocation" type="text" placeholder="Enter a job location" />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col">
+                    <textarea rows="6" class="form-control" asp-for="Description" type="text" placeholder="Enter a job description"></textarea>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-6">
+                    <input class="form-control" asp-for="Salary" type="number" placeholder="Enter annual salary" />
+                </div>
+
+
+            </div>
+
+            <div class="row form-group">
+                <div class="col-6">
+                    <div class="col-form-label">Enter a start date</div>
+                    <input class="form-control" asp-for="StartDate" type="date" />
+                </div>
+
+            </div>
+
+            <hr />
+
+            <div class="row form-group">
+                <div class="col">
+                    <input class="form-control" asp-for="CompanyName" type="text" placeholder="Enter the company name" />
+                </div>
+
+                <div class="col">
+                    <input class="form-control" asp-for="ContactWebsite" type="url" placeholder="Enter the company website" />
+                </div>
+
+            </div>
+
+            <div class="row form-group">
+                <div class="col">
+                    <input class="form-control" asp-for="ContactPhone" type="tel" placeholder="Enter the company phone number" />
+                </div>
+
+                <div class="col">
+                    <input class="form-control" asp-for="ContactMail" type="email" placeholder="Enter the company mail" />
+                </div>
+
+            </div>
+
+            <div class="row form-group">
+
+                <div class="col">
+                    <label>Image</label>
+                    <input class="form-control-file" name="file" type="file" placeholder="Upload a company image" />
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="card-footer">
+            <button class="btn btn-primary" type="submit">Save</button>
+        </div>
+    </div>
+</form>
+
