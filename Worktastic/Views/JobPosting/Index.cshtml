@@ -1,4 +1,4 @@
-﻿@model List<Worktastic.Model.JobPosting>
+﻿@model List<JobPosting>
 
 @{
     ViewData["Title"] = "Your Jobs";
@@ -20,7 +20,7 @@
 
     <tbody>
         @{
-            foreach (Worktastic.Model.JobPosting jobPosting in Model)
+            foreach (JobPosting jobPosting in Model)
             { 
                 <tr>
                     <td>@jobPosting.JobTitle</td>

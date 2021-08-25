@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Worktastic.Data;
-using Worktastic.Model;
+using Worktastic.Models;
 
 namespace Worktastic.Controllers
 {
