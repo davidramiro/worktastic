@@ -26,6 +26,12 @@ namespace Worktastic.Controllers
 
         public IActionResult Index()
         {
+            if (User.IsInRole("admin"))
+            {
+                var allJobPostings = _context.JobPostings.ToList();
+                return View(allJobPostings);
+            }
+
             var jobPostingsFromDb = _context.JobPostings.Where(x => x.OwnerUsername == User.Identity.Name).ToList();
             return View(jobPostingsFromDb);
         }
@@ -37,7 +43,7 @@ namespace Worktastic.Controllers
             { 
                 var jobPostingFromDB = _context.JobPostings.SingleOrDefault(x => x.Id == id);
 
-                if (jobPostingFromDB.OwnerUsername != User.Identity.Name)
+                if ((jobPostingFromDB.OwnerUsername != User.Identity.Name) && !User.IsInRole("admin"))
                 {
                     return Unauthorized();
                 }
